@@ -1,0 +1,10 @@
+<h1>LOG IN Lenders</h1>
+	<form action='/sessions/lender_login' method='post'>
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<label><h2>Email: </h2></label>
+		 	<input type='text' name='Email'/><br>
+		<label><h2>Password</h2></label>
+			<input type='password' name='Password'/><br>
+		<input type='submit' value='Log In' /><br>
+	</form>
+<a href="/sessions/new">Click here to register</a>

@@ -1,0 +1,54 @@
+<h1>Name: <%= @lender.first_name %> <%= @lender.last_name %></h1><br>
+<h1>Account Balance: $<%= @lender.money %></h1>
+
+<h2>List of People who need help:</h2>
+<table>
+		<tr>
+			<th>Name</th>
+			<th>Need Money for</th>
+			<th>Reason for Loan</th>
+			<th>Amount Needed</th>
+			<th>Amount Raised</th>
+			<th>Action/Status</th>
+		</tr>
+		<tr><% @borrowers.each do |b| %>
+			<% unless b.self_borrow(@lender.id) %>
+			<td><%= b.first_name %> <%= b.last_name %></td>
+			<td><%= b.purpose %></td>
+			<td><%= b.description%></td>
+			<td>$<%= b.money %></td>
+			<td>$<%= b.raised %></td>
+			<td><form action="/histories" method='post'>
+				    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+				    <input type='hidden' name='lender_id' value='<%= @lender.id%>'>
+				    <input type='hidden' name='borrower_id' value='<%=b.id%>'>
+				    <input type='number' name='amount'>
+				    <input type='submit' value='Lend'>
+				  </form>
+			</td>
+			<% end %>
+		</tr>
+		<% end %>		
+</table>
+		
+
+<h2>List of People you lent money to:</h2>
+<table>
+		<tr>
+			<th>Name</th>
+			<th>Need Money for</th>
+			<th>Reason for Loan</th>
+			<th>Amount Needed</th>
+			<th>Amount Raised</th>
+			<th>Amount Lent</th>
+		</tr>
+		<tr><% @borrowed.each do |b| %>
+			<td><%= b.borrower.first_name %> <%= b.borrower.last_name %></td>
+			<td><%= b.borrower.purpose %></td>
+			<td><%= b.borrower.description%></td>
+			<td>$<%= b.borrower.money %></td>
+			<td>$<%= b.borrower.raised %></td>
+			<td>$<%= b.amount %></td>
+		</tr>
+		<% end %>
+</table>

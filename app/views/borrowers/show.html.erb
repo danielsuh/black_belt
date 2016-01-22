@@ -1,0 +1,18 @@
+<h1>Name: <%= @borrower.first_name %> <%= @borrower.last_name %></h1><br>
+<h1>Amount Needed: $<%= @borrower.money %></h1>
+<h1>Amount Raised: $<%= @borrower.raised %></h1>
+
+<h2>List of People who lent you money:</h2>
+<table>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Amount Lent</th>
+		</tr>
+		<tr><% @lenders.each do |l| %>
+			<td><%= l.lender.first_name %> <%= l.lender.last_name %></td>
+			<td><%= l.lender.email %></td>
+			<td>$<%= l.amount %></td>
+		</tr>
+		<% end %>
+</table>
