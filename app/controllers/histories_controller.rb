@@ -8,7 +8,7 @@ class HistoriesController < ApplicationController
     @borrower = Borrower.find(params[:borrower_id])
     if @lender.money >= params[:amount].to_f && @history.save
       money = @lender.money - params[:amount].to_f
-      money_raised = @borrower.raised + params[:amount].to_f
+      money_raised = @borrower.raised.to_f + params[:amount].to_f
       @lender.update(money: money)
       @borrower.update(raised: money_raised)
       redirect_to "/lenders/#{params[:lender_id]}"
